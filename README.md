@@ -35,7 +35,7 @@ const api = new Api({
   }
 });
 
-const login = async () => {
+const handleGetMatches = async () => {
   const res = await api.public.matchControllerGetOrderMatch(1, 1);
   if(res.ok) {
     setBankList(res.data?.banks);
