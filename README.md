@@ -17,6 +17,36 @@ $ yarn codegen:dev # swagger-typescript-api
 ```
 ___
 
+### Examples
+
+```ts
+
+import { Api } from "./generated/swagger.schema";
+
+const baseURL = 'localhost:3000';
+
+/** fetch의 helper객체 */
+const api = new Api({
+  baseUrl,
+  baseApiParams: {
+    headers: {
+      Authorization: `Bearer JWT_TOKEN`,
+    }
+  }
+});
+
+const login = async () => {
+  const res = await api.public.matchControllerGetOrderMatch(1, 1);
+  if(res.ok) {
+    setBankList(res.data?.banks);
+    setOrderList(res.data?.orders);
+  } else {
+    // 요청실패.
+  }
+};
+
+```
+
 
 ### Refs
 - [openapi-typescript](https://github.com/drwpow/openapi-typescript)

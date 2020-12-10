@@ -65,6 +65,11 @@ const Login = () => {
  */
 const api = new Api({
   baseUrl: "https://dev-m-cafe24-api.bankda.com",
+  baseApiParams: {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYW5rZGFtIiwiZXhwIjoiMTYwNzc5ODE2Njg3OCIsIm0iOiIxIiwiciI6IlAiLCJ0IjoiY2FmZTI0IiwicyI6Ilt7XCJuXCI6XCJxXCIsXCJlXCI6MTYwOTQyNjc5OTAwMCxcImNcIjozfV0iLCJvIjoiMCIsIm1pZCI6Imlsb3ZldTg4ODciLCJpcCI6IjExMi4yMTYuMzIuMTQwIn0.t4upd9PmHYcltgKWQMsP0nLssDplUlLR3tcwUzXQsQ4`,
+    }
+  }
 });
 
 const Login2 = () => {
@@ -80,6 +85,16 @@ const Login2 = () => {
     }
   };
 
+  const test = async () => {
+    // api.setSecurityData({
+      // Authorization:
+        // "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiYW5rZGFtIiwiZXhwIjoiMTYwNzc5ODE2Njg3OCIsIm0iOiIxIiwiciI6IlAiLCJ0IjoiY2FmZTI0IiwicyI6Ilt7XCJuXCI6XCJxXCIsXCJlXCI6MTYwOTQyNjc5OTAwMCxcImNcIjozfV0iLCJvIjoiMCIsIm1pZCI6Imlsb3ZldTg4ODciLCJpcCI6IjExMi4yMTYuMzIuMTQwIn0.t4upd9PmHYcltgKWQMsP0nLssDplUlLR3tcwUzXQsQ4",
+    // });
+
+    const res = await api.public.matchControllerGetOrderMatch(1, 1);
+    console.log("RES: ", res);
+  }
+
   return (
     <div>
       {accessToken ? (
@@ -93,6 +108,7 @@ const Login2 = () => {
             }}
           />
           <button onClick={handleLogin}>로그인</button>
+          <button onClick={test}>test</button>
         </div>
       )}
     </div>
