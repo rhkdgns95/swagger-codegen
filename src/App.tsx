@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import fetch from "node-fetch";
 import { operations } from "./generated/schema";
+import { Api } from "./generated/swagger.schema";
 
 const baseUrl = "http://localhost:3001/public/api";
 
@@ -20,9 +21,13 @@ async function login(
 export default () => (
   <div>
     <Login />
+    <Login2 />
   </div>
 );
 
+/**
+ *  openapi-typescript
+ */
 const Login = () => {
   const [state, setState] = useState<string>("");
   const [code, setCode] = useState<string>("");
@@ -52,5 +57,44 @@ const Login = () => {
         </div>
       )}
     </>
+  );
+};
+
+/**
+ *  swagger-typescript-api
+ */
+const api = new Api({
+  baseUrl: "https://dev-m-cafe24-api.bankda.com",
+});
+
+const Login2 = () => {
+  const [state, setState] = useState<string>("");
+  const [accessToken, setAccessToken] = useState<undefined | string>(undefined);
+
+  const handleLogin = async () => {
+    const res = await api.public.authControllerLogin({ state, code: "" });
+    if (res.ok) {
+      if (res.data?.accessToken) {
+        setAccessToken(res.data.accessToken);
+      }
+    }
+  };
+
+  return (
+    <div>
+      {accessToken ? (
+        <p>로그인됨: {accessToken}</p>
+      ) : (
+        <div>
+          <input
+            type="text"
+            onChange={(e) => {
+              setState(e.target.value);
+            }}
+          />
+          <button onClick={handleLogin}>로그인</button>
+        </div>
+      )}
+    </div>
   );
 };
